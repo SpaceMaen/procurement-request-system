@@ -1,0 +1,20 @@
+# Functional Requirements
+
+## Actors
+- Requester
+- Procurement Officer
+
+## Request Lifecycle
+- Draft
+- Submitted
+- In Review
+- Approved / Rejected
+- Closed
+
+## Request Fields
+- Title
+- Description
+- Product or Service
+- Estimated Cost
+- Quantity
+- Justification
