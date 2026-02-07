@@ -1,0 +1,115 @@
+# Procurement Request System – Blueprint (MVP)
+
+## Ziel (kurz)
+Eine Web-App, in der Mitarbeitende Beschaffungsanfragen erstellen und absenden können.
+Procurement sieht alle Requests, kann Status ändern, und jede Statusänderung wird gespeichert.
+Zusätzlich: Angebot hochladen/einfügen → Felder werden automatisch ausgefüllt.
+
+---
+
+## Seiten (Web-App)
+### 1) Intake (Request erstellen)
+User kann:
+- Angebotstext einfügen oder Datei hochladen (optional)
+- Formular wird (teilweise) automatisch ausgefüllt
+- Order Lines (Positionen) hinzufügen/ändern
+- Speichern als Draft (auch unvollständig erlaubt)
+- Absenden (nur wenn gültig)
+
+### 2) Overview (Procurement-Ansicht)
+Procurement kann:
+- Liste aller Requests sehen (Filter nach Status)
+- Request öffnen (Detail)
+- Status ändern: Open / In Progress / Closed
+- Statusänderungen werden als Historie gespeichert
+
+---
+
+## Datenhaltung (SQLite = lokale Datenbank-Datei)
+Wir speichern alles in einer Datei z.B. `procurement.db`.
+Eine „Tabelle“ ist wie ein Excel-Blatt.
+
+### Tabelle A: requests (Kopf des Requests)
+Spalten (Beispiele):
+- id (Nummer, automatisch)
+- requestor_name
+- department
+- title
+- vendor_name
+- vendor_vat_id
+- commodity_group_id (wird automatisch vorgeschlagen)
+- commodity_group_name
+- total_cost (Zahl)
+- currency (z.B. EUR)
+- submit_status (Draft oder Submitted)
+- process_status (Open / In Progress / Closed)
+- created_at
+
+### Tabelle B: order_lines (Positionen)
+- id
+- request_id (Verknüpfung zum Request)
+- description
+- unit_price
+- quantity
+- unit
+- line_total (berechnet)
+
+### Tabelle C: status_history (jede Statusänderung)
+- id
+- request_id
+- old_status
+- new_status
+- changed_at
+- changed_by (optional)
+- note (optional)
+
+---
+
+## Validierung (nur gültige Requests dürfen „Submitted“ sein)
+Beim Absenden prüfen wir:
+- Pflichtfelder im Kopf gefüllt (Requestor, Department, Title, Vendor, VAT, Total)
+- mind. 1 Order Line
+- jede Order Line: Description nicht leer, unit_price > 0, quantity >= 1
+- Total Cost = Summe der line_total (wir berechnen total automatisch)
+
+Draft darf gespeichert werden, auch wenn noch etwas fehlt.
+
+---
+
+## Auto-Fill aus Vendor Offer (Extraktion)
+### Was ist „Extraktion“?
+Wir lesen den Text aus dem Angebot und ziehen strukturierte Daten heraus:
+- Vendor Name, VAT ID
+- Department (z.B. “Offered to …”)
+- Order Lines (Produkt, Preis, Menge, Total)
+- Total Cost
+
+### MVP-Ansatz (stabil):
+- User fügt Angebot als Text ein (Copy/Paste) ODER lädt Datei hoch
+- Wir schicken den Text an OpenAI und bekommen JSON zurück (strukturierte Daten)
+- Formularfelder werden damit automatisch gefüllt
+
+---
+
+## Commodity Group (User muss nicht auswählen)
+Problem: User wählen Warengruppe oft falsch.
+Lösung:
+- System schlägt Commodity Group automatisch vor (OpenAI-Klassifikation)
+- Procurement kann später korrigieren (Override möglich)
+
+---
+
+## Tech Stack (MVP)
+- Frontend: Streamlit (läuft lokal im Browser)
+- Datenbank: SQLite (Datei)
+- KI: OpenAI API (Extraktion + Commodity Group Vorschlag)
+
+---
+
+## Definition of Done (MVP)
+- Request erstellen + Draft speichern + Submitted absenden
+- Alles wird in SQLite gespeichert (Kopf + Positionen)
+- Overview zeigt Requests + Status ändern
+- Status-Historie wird gespeichert
+- Offer Text → Auto-Fill funktioniert (mindestens Copy/Paste)
+- Commodity Group wird automatisch vorgeschlagen
