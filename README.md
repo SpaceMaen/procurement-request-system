@@ -212,3 +212,7 @@
 
 # └── LICENSE
 
+🏗️ System Architecture (High Level)
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/9940c50e-dfaa-47f0-bc74-d0999f35bbf5" />
+
