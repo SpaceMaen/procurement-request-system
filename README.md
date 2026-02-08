@@ -1,4 +1,4 @@
-# \# Procurement Request System (MVP)
+# &nbsp;Procurement Request System (MVP)
 
 # 
 
@@ -14,7 +14,7 @@
 
 # 
 
-# \## 🎯 Purpose of the Project
+# &nbsp;🎯 Purpose of the Project
 
 # 
 
@@ -36,11 +36,11 @@
 
 # 
 
-# \## 🧩 Key Features
+# &nbsp;🧩 Key Features
 
 # 
 
-# \### 1) Intake – Create a Procurement Request
+# 1\) Intake – Create a Procurement Request
 
 # \- Web form to create new procurement requests
 
@@ -52,7 +52,7 @@
 
 # 
 
-# \### 2) Automatic Offer Extraction (AI)
+# &nbsp;2) Automatic Offer Extraction (AI)
 
 # Users typically already have a vendor offer available. Instead of manually copying data, the system supports:
 
@@ -82,7 +82,7 @@
 
 # 
 
-# \### 3) Automatic Commodity Group Assignment
+# &nbsp;3) Automatic Commodity Group Assignment
 
 # \- Users do \*\*not\*\* select a commodity group
 
@@ -92,7 +92,7 @@
 
 # 
 
-# \### 4) Overview – Procurement View
+# &nbsp;4) Overview – Procurement View
 
 # \- Overview of all requests
 
@@ -108,7 +108,7 @@
 
 # 
 
-# \## 🔐 Data Protection \& GDPR (Technical Measures)
+# 🔐 Data Protection \& GDPR (Technical Measures)
 
 # 
 
@@ -146,23 +146,21 @@
 
 # 
 
-# \## 🏗️ System Architecture (High Level)
+# 🏗️ System Architecture (High Level)
 
 # 
-
-# ```mermaid
 
 # flowchart TD
 
-# &nbsp; U\[User / Requestor<br>(Browser)] --> S\[Streamlit Web App<br>Intake + Overview]
+# &nbsp; U\["User / Requestor<br>(Browser)"] --> S\["Streamlit Web App<br>Intake + Overview"]
 
 # 
 
-# &nbsp; S -->|Upload PDF/TXT/DOCX<br>or Copy/Paste text| P\[Local Document Processing<br>Extract text]
+# &nbsp; S -->|Upload PDF/TXT/DOCX<br>or Copy/Paste text| P\["Local Document Processing<br>Extract text"]
 
-# &nbsp; P --> R\[Redaction / Data Minimisation<br>(email, phone, IBAN, contact names)]
+# &nbsp; P --> R\["Redaction / Data Minimisation<br>(email, phone, IBAN, contact names)"]
 
-# &nbsp; R --> AI\[OpenAI API<br>Extraction + Title + Commodity Group]
+# &nbsp; R --> AI\["OpenAI API<br>Extraction + Title + Commodity Group"]
 
 # 
 
@@ -170,23 +168,25 @@
 
 # 
 
-# &nbsp; S --> DB\[(SQLite Database - local file<br>requests / order\_lines / status\_history)]
+# &nbsp; S --> DB\[("SQLite Database - local file<br>requests / order\_lines / status\_history")]
 
 # &nbsp; DB --> S
 
 # 
 
-# &nbsp; S -->|Status updates| H\[Status History Logging]
+# &nbsp; S -->|Status updates| H\["Status History Logging"]
 
 # &nbsp; H --> DB
 
 
 
-# \## 🚀 Local Setup \& Run
+
+
+# &nbsp;🚀 Local Setup \& Run
 
 # 
 
-# \### 1) Clone the repository
+# &nbsp;1) Clone the repository
 
 # ```bash
 
