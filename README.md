@@ -140,43 +140,6 @@
 
 # \*\*Note:\*\* This is a technical MVP. For productive use, organisational measures (e.g., DPA/AVV, role concepts) would still be required.
 
-# 
-
-# 
-
-# 
-
-# 🏗️ System Architecture (High Level)
-
-# 
-
-# flowchart TD
-
-# &nbsp; U\["User / Requestor<br>(Browser)"] --> S\["Streamlit Web App<br>Intake + Overview"]
-
-# 
-
-# &nbsp; S -->|Upload PDF/TXT/DOCX<br>or Copy/Paste text| P\["Local Document Processing<br>Extract text"]
-
-# &nbsp; P --> R\["Redaction / Data Minimisation<br>(email, phone, IBAN, contact names)"]
-
-# &nbsp; R --> AI\["OpenAI API<br>Extraction + Title + Commodity Group"]
-
-# 
-
-# &nbsp; AI -->|Structured result| S
-
-# 
-
-# &nbsp; S --> DB\[("SQLite Database - local file<br>requests / order\_lines / status\_history")]
-
-# &nbsp; DB --> S
-
-# 
-
-# &nbsp; S -->|Status updates| H\["Status History Logging"]
-
-# &nbsp; H --> DB
 
 
 
@@ -185,8 +148,7 @@
 
 
 
-
-# &nbsp;```🚀 Local Setup \& Run
+# 🚀 Local Setup \& Run
 
 # 
 
