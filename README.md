@@ -2,9 +2,9 @@
 
 # 
 
-# A lightweight, locally deployable \*\*Procurement Request System\*\* with a web-based user interface.  
+# A lightweight, locally deployable \*\*Procurement Request System\*\* with a web-based user interface.
 
-# Employees can create procurement requests, upload vendor offers, and automatically extract relevant information using AI.  
+# Employees can create procurement requests, upload vendor offers, and automatically extract relevant information using AI.
 
 # The procurement department maintains full visibility and control over request statuses.
 
@@ -58,13 +58,13 @@
 
 # \### 2) Automatic Offer Extraction (AI)
 
-# Users typically already have a vendor offer available.  
+# Users typically already have a vendor offer available.
 
 # Instead of manually copying data, the system supports:
 
 # 
 
-# \- Uploading \*\*PDF / TXT / DOCX\*\* documents  
+# \- Uploading \*\*PDF / TXT / DOCX\*\* documents
 
 # \- Alternatively: \*\*Copy \& Paste\*\* offer text
 
@@ -82,17 +82,17 @@
 
 # \- Cost structure:
 
-# &nbsp; - Net positions
+#   - Net positions
 
-# &nbsp; - Shipping costs
+#   - Shipping costs
 
-# &nbsp; - Tax amount
+#   - Tax amount
 
-# &nbsp; - Total gross amount (final price)
+#   - Total gross amount (final price)
 
 # 
 
-# ➡️ \*\*Title / Short Description\*\* is automatically generated,  
+# ➡️ \*\*Title / Short Description\*\* is automatically generated,
 
 # because real-world offers usually do \*\*not\*\* contain such a field.
 
@@ -114,11 +114,11 @@
 
 # \- The AI assigns the most appropriate group based on:
 
-# &nbsp; - Request title
+#   - Request title
 
-# &nbsp; - Vendor
+#   - Vendor
 
-# &nbsp; - Order lines (purpose of purchase)
+#   - Order lines (purpose of purchase)
 
 # 
 
@@ -140,11 +140,11 @@
 
 # \- Status management:
 
-# &nbsp; - Open
+#   - Open
 
-# &nbsp; - In Progress
+#   - In Progress
 
-# &nbsp; - Closed
+#   - Closed
 
 # \- \*\*Full status history\*\* is automatically logged
 
@@ -166,19 +166,19 @@
 
 # \- ✔ \*\*Redaction before AI processing\*\*:
 
-# &nbsp; - Email addresses
+#   - Email addresses
 
-# &nbsp; - Phone numbers
+#   - Phone numbers
 
-# &nbsp; - IBAN / BIC
+#   - IBAN / BIC
 
-# &nbsp; - Named contact persons
+#   - Named contact persons
 
 # \- ✔ No storage of:
 
-# &nbsp; - Original uploaded documents
+#   - Original uploaded documents
 
-# &nbsp; - Full unstructured offer texts
+#   - Full unstructured offer texts
 
 # \- ✔ Only structured procurement-relevant data is stored
 
@@ -186,9 +186,9 @@
 
 # 
 
-# \*\*Important:\*\*  
+# \*\*Important:\*\*
 
-# This is a technical MVP. For productive use, organisational measures  
+# This is a technical MVP. For productive use, organisational measures
 
 # (e.g. DPA/AVV, role concepts) would still be required.
 
@@ -211,6 +211,70 @@
 # \- \*\*OpenAI API\*\* – data extraction \& classification
 
 # \- \*\*PyPDF / python-docx\*\* – document parsing
+
+# 
+
+# \## 🏗️ System Architecture (High Level)
+
+# 
+
+# The system is intentionally simple and transparent:
+
+# 
+
+# \- Users interact via a Streamlit web application in the browser.
+
+# \- Offers can be uploaded (PDF/TXT/DOCX) or pasted as text.
+
+# \- Before using AI, typical personal data is \*\*redacted\*\* (data minimisation).
+
+# \- AI is used for:
+
+# &nbsp; - Offer extraction (vendor, VAT, order lines, totals)
+
+# &nbsp; - Title generation (because offers usually do not contain a “Title” field)
+
+# &nbsp; - Commodity group classification
+
+# \- Only structured procurement data is stored locally in SQLite.
+
+# 
+
+# ```mermaid
+
+# flowchart TD
+
+# &nbsp; U\[User / Requestor<br>(Browser)] --> S\[Streamlit Web App<br>Intake + Overview]
+
+# 
+
+# &nbsp; S -->|Upload PDF/TXT/DOCX<br>or Copy/Paste text| P\[Local Document Processing<br>Extract text]
+
+# &nbsp; P --> R\[Redaction / Data Minimisation<br>(email, phone, IBAN, contact names)]
+
+# &nbsp; R --> AI\[OpenAI API<br>Extraction + Title + Commodity Group]
+
+# 
+
+# &nbsp; AI -->|Structured result| S
+
+# 
+
+# &nbsp; S --> DB\[(SQLite Database - local file<br>requests / order\_lines / status\_history)]
+
+# &nbsp; DB --> S
+
+# 
+
+# &nbsp; S -->|Status updates| H\[Status History Logging]
+
+# &nbsp; H --> DB
+
+
+
+
+
+
 
 # 
 
@@ -281,26 +345,4 @@
 # ├── README.md
 
 # └── LICENSE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
