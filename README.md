@@ -186,7 +186,7 @@
 
 
 
-# &nbsp;🚀 Local Setup \& Run
+# &nbsp;```🚀 Local Setup \& Run
 
 # 
 
