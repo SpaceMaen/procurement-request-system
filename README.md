@@ -2,9 +2,9 @@
 
 # 
 
-# A lightweight, locally deployable \*\*Procurement Request System\*\* with a web-based user interface.
+# A lightweight, locally deployable \*\*Procurement Request System\*\* with a web-based user interface.  
 
-# Employees can create procurement requests, upload vendor offers, and automatically extract relevant information using AI.
+# Employees can create procurement requests, upload vendor offers, and automatically extract relevant information using AI.  
 
 # The procurement department maintains full visibility and control over request statuses.
 
@@ -28,7 +28,7 @@
 
 # 
 
-# This project demonstrates how \*\*AI-assisted intake\*\* can significantly simplify procurement workflows while keeping \*\*control and compliance\*\* with procurement.
+# This project demonstrates how \*\*AI-assisted intake\*\* can simplify procurement workflows while keeping \*\*control and traceability\*\*.
 
 # 
 
@@ -52,17 +52,9 @@
 
 # 
 
-# ---
-
-# 
-
 # \### 2) Automatic Offer Extraction (AI)
 
-# Users typically already have a vendor offer available.
-
-# Instead of manually copying data, the system supports:
-
-# 
+# Users typically already have a vendor offer available. Instead of manually copying data, the system supports:
 
 # \- Uploading \*\*PDF / TXT / DOCX\*\* documents
 
@@ -70,7 +62,7 @@
 
 # 
 
-# The AI automatically extracts:
+# The AI extracts:
 
 # \- Vendor name
 
@@ -80,73 +72,35 @@
 
 # \- Order lines (description, unit price, quantity, unit)
 
-# \- Cost structure:
-
-#   - Net positions
-
-#   - Shipping costs
-
-#   - Tax amount
-
-#   - Total gross amount (final price)
+# \- Cost structure (if present in the offer): net positions, shipping, tax amount, total gross
 
 # 
 
-# ➡️ \*\*Title / Short Description\*\* is automatically generated,
+# ➡️ \*\*Title / Short Description\*\* is automatically generated because real-world offers usually do \*\*not\*\* contain such a field.  
 
-# because real-world offers usually do \*\*not\*\* contain such a field.
-
-# 
-
-# ---
+# ➡️ \*\*Requestor Name\*\* is not extracted (it usually does not exist in vendor offers); it remains a manual input.
 
 # 
 
 # \### 3) Automatic Commodity Group Assignment
 
-# Selecting the correct commodity group is a frequent source of errors.
+# \- Users do \*\*not\*\* select a commodity group
 
-# 
+# \- The AI assigns the most appropriate group based on request context (title/vendor/order lines)
 
-# In this system:
-
-# \- Users \*\*do not select\*\* a commodity group
-
-# \- The AI assigns the most appropriate group based on:
-
-#   - Request title
-
-#   - Vendor
-
-#   - Order lines (purpose of purchase)
-
-# 
-
-# A fallback heuristic is used if AI is unavailable.
-
-# 
-
-# ---
+# \- A fallback heuristic is used if AI is unavailable
 
 # 
 
 # \### 4) Overview – Procurement View
 
-# For the procurement department:
-
 # \- Overview of all requests
 
-# \- Detailed view including order lines
+# \- Detail view including order lines
 
-# \- Status management:
+# \- Status management: \*\*Open / In Progress / Closed\*\*
 
-#   - Open
-
-#   - In Progress
-
-#   - Closed
-
-# \- \*\*Full status history\*\* is automatically logged
+# \- \*\*Status history\*\* is automatically logged
 
 # 
 
@@ -158,39 +112,33 @@
 
 # 
 
-# The system is designed with \*\*data minimisation and GDPR awareness\*\* in mind:
+# The system is designed with \*\*data minimisation\*\* in mind:
 
 # 
 
-# \- ✔ Explicit user consent before any AI-based extraction
+# \- Explicit user consent before any AI-based extraction
 
-# \- ✔ \*\*Redaction before AI processing\*\*:
+# \- \*\*Redaction before AI processing\*\* (typical personal data):
 
-#   - Email addresses
+# &nbsp; - Email addresses
 
-#   - Phone numbers
+# &nbsp; - Phone numbers
 
-#   - IBAN / BIC
+# &nbsp; - IBAN / BIC
 
-#   - Named contact persons
+# &nbsp; - Named contact persons
 
-# \- ✔ No storage of:
+# \- No storage of:
 
-#   - Original uploaded documents
+# &nbsp; - original uploaded documents
 
-#   - Full unstructured offer texts
+# &nbsp; - full unstructured offer texts
 
-# \- ✔ Only structured procurement-relevant data is stored
-
-# \- ✔ Local data storage (SQLite)
+# \- Only structured, procurement-relevant data is stored locally (SQLite)
 
 # 
 
-# \*\*Important:\*\*
-
-# This is a technical MVP. For productive use, organisational measures
-
-# (e.g. DPA/AVV, role concepts) would still be required.
+# \*\*Note:\*\* This is a technical MVP. For productive use, organisational measures (e.g., DPA/AVV, role concepts) would still be required.
 
 # 
 
@@ -198,45 +146,7 @@
 
 # 
 
-# \## 🛠 Technology Stack
-
-# 
-
-# \- \*\*Python 3.12\*\*
-
-# \- \*\*Streamlit\*\* – web frontend
-
-# \- \*\*SQLite\*\* – local database
-
-# \- \*\*OpenAI API\*\* – data extraction \& classification
-
-# \- \*\*PyPDF / python-docx\*\* – document parsing
-
-# 
-
 # \## 🏗️ System Architecture (High Level)
-
-# 
-
-# The system is intentionally simple and transparent:
-
-# 
-
-# \- Users interact via a Streamlit web application in the browser.
-
-# \- Offers can be uploaded (PDF/TXT/DOCX) or pasted as text.
-
-# \- Before using AI, typical personal data is \*\*redacted\*\* (data minimisation).
-
-# \- AI is used for:
-
-# &nbsp; - Offer extraction (vendor, VAT, order lines, totals)
-
-# &nbsp; - Title generation (because offers usually do not contain a “Title” field)
-
-# &nbsp; - Commodity group classification
-
-# \- Only structured procurement data is stored locally in SQLite.
 
 # 
 
@@ -268,9 +178,9 @@
 
 # &nbsp; S -->|Status updates| H\[Status History Logging]
 
-# &nbsp; H --> DB```
+# &nbsp; H --> DB
 
-# 
+
 
 # \## 🚀 Local Setup \& Run
 
